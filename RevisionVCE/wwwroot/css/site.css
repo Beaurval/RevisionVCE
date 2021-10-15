@@ -61,6 +61,7 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
+  background-color: #d8d8d8;
 }
 .footer {
   position: absolute;
@@ -69,3 +70,105 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+.title, #explanation{
+    background-color: white;
+    border-radius: 7px;
+    padding: 20px;
+    margin: 50px 0 50px 0;
+    width: 100%;
+}
+    #explanation.vrai {
+        color: green;
+    }
+    #explanation.faux {
+        color: red;
+    }
+.question-container {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 15px;
+}
+
+.letter {
+    background-color: rebeccapurple;
+    color: white;
+    padding: 15px;
+    width: 80px;
+    text-align: center;
+    font-size: 1.5em;
+    border-radius: 7px 0 0 7px;
+}
+
+.text{
+    background-color: white;
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    font-weight: bold;
+    border-radius: 0 7px 7px 0;
+}
+
+.question-container:hover .text{
+    background-color: grey;
+    cursor: pointer;
+    color: white;
+}
+
+.question-container.selected{
+    border: 5px solid #000000;
+    border-radius: 13px;
+}
+.question-container.selected.correct, .correct {
+    border: 5px solid #50dd58;
+    border-radius: 13px;
+}
+    .question-container.selected.wrong {
+        border: 5px solid red;
+        border-radius: 13px;
+    }
+#validation-container, #next-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-top: 15px;
+}
+.validation-text, .next-text {
+    background-color: white;
+    padding: 10px;
+    width: 20%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    border-radius: 7px 0 0 7px;
+    text-align: center;
+}
+.validation-btn button {
+    height: 100%;
+    display: block;
+    width: 50px;
+    background-color: #663399;
+    color: white;
+    border: none;
+    border-radius: 0 7px 7px 0;
+}
+.next-btn button {
+    height: 100%;
+    display: block;
+    width: 50px;
+    background-color: #663399;
+    color: white;
+    border: none;
+    border-radius: 0 7px 7px 0;
+}
+    .validation-btn button:hover {
+        background-color: #4b2670;
+    }
+    next-btn button:hover {
+        background-color: #4b2670;
+    }
