@@ -1,37 +1,61 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
+using iText.Kernel.Pdf;
+using iText.Kernel.Pdf.Canvas.Parser;
+using iText.Kernel.Pdf.Canvas.Parser.Listener;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RevisionVCE.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace RevisionVCE.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController()
         {
-            _logger = logger;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var model = TransformPdfIntoQuestions("D:\\dev\\source\\repos\\RevisionVCE\\RevisionVCE\\wwwroot\\myFile.pdf");
+            return View(model);
         }
 
-        public IActionResult Privacy()
+        public List<Question> TransformPdfIntoQuestions(string pdfPath)
         {
-            return View();
-        }
+            List<Question> questions = new List<Question>();
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            PdfReader pdfReader = new PdfReader(pdfPath);
+            PdfDocument pdfDoc = new PdfDocument(pdfReader);
+            string allText = "";
+            for (int page = 1; page <= pdfDoc.GetNumberOfPages(); page++)
+            {
+                ITextExtractionStrategy strategy = new SimpleTextExtractionStrategy();
+                allText += PdfTextExtractor.GetTextFromPage(pdfDoc.GetPage(page), strategy);
+            }
+
+
+            //Split the text by questions
+            string[] textSplitedByQuestions = Regex.Split(allText, @"QUESTION [01]?[0-9][0-9]?");
+            for (int i = 0; i < textSplitedByQuestions.Length; i++)
+            {
+                textSplitedByQuestions[i] = Regex.Replace(textSplitedByQuestions[i], @".*http.*|.*www.vceplus.*", "");
+            }
+            //Then process each questions
+            foreach (string questionText in textSplitedByQuestions.Skip(1))
+            {
+                Question question = new Question(questionText);
+                questions.Add(question);
+            }
+
+            return questions;
         }
     }
 }
