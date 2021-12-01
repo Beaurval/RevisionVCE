@@ -4,6 +4,9 @@ using iText.Kernel.Pdf.Canvas.Parser;
 using iText.Kernel.Pdf.Canvas.Parser.Listener;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using RevisionVCE.Domain.Models;
+using RevisionVCE.Infra.Context;
+using RevisionVCE.IServices;
 using RevisionVCE.Models;
 using System;
 using System.Collections.Generic;
@@ -18,14 +21,37 @@ namespace RevisionVCE.Controllers
 {
     public class HomeController : Controller
     {
-        public HomeController()
+        private readonly IPdfParserService _pdfService;
+        public HomeController(IPdfParserService pdfService)
         {
+            _pdfService = pdfService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var model = TransformPdfIntoQuestions("D:\\dev\\source\\repos\\RevisionVCE\\RevisionVCE\\wwwroot\\myFile.pdf");
-            return View(model);
+            //var model = TransformPdfIntoQuestions("D:\\dev\\source\\repos\\RevisionVCE\\RevisionVCE\\wwwroot\\myFile.pdf");
+            //Questionnaire questionnaire = new Questionnaire();
+
+            //questionnaire.Titre = "VCE Questionnaire 116 questions";
+            //questionnaire.Questions = model;
+
+            //_context.Questionnaires.Add(questionnaire);
+            //await _context.SaveChangesAsync();
+
+
+            ////for (int i = 0; i < model.Count; i++)
+            ////{
+            ////    model[i].Questionnaire = questionnaire;
+            ////}
+
+            ////questionnaire.Questions = model;
+            ////_context.Questions.AddRange(questionnaire.Questions);
+            ////await _context.SaveChangesAsync();
+            ///
+
+            IEnumerable<QuestionModel> questions = _pdfService.GetQuestionsFromPdf();
+
+            return View();
         }
 
         public List<Question> TransformPdfIntoQuestions(string pdfPath)

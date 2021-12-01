@@ -1,13 +1,18 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using RevisionVCE.Infra.Context;
+using RevisionVCE.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using RevisionVCE.Services;
+using RevisionVCE.IServices;
 
 namespace RevisionVCE
 {
@@ -24,6 +29,17 @@ namespace RevisionVCE
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddDbContext<VceQuizzContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("DevEnvironnement"))
+                .UseLazyLoadingProxies();
+            });
+            AddInjectionDependencyForServices(services);
+        }
+
+        private void AddInjectionDependencyForServices(IServiceCollection services)
+        {
+            services.AddScoped<IPdfParserService, PdfParserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

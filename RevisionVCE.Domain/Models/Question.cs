@@ -1,16 +1,25 @@
-﻿using System;
+﻿using RevisionVCE.Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace RevisionVCE.Models
+namespace RevisionVCE.Domain.Models
 {
     public class Question
     {
+        public Question()
+        {
+
+        }
+        /// <summary>
+        /// Récupère un paragraphe de question dans le but de parser ce dernier en Question
+        /// </summary>
+        /// <param name="textToProcess">Le texte à traiter</param>
         public Question(string textToProcess)
         {
-            Choices = new Dictionary<char, string>();
+            Choices = new List<Choice>();
 
             string[] textSplitedInLine = textToProcess.Split(new string[] { "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
             textSplitedInLine = textSplitedInLine.Where(x => !string.IsNullOrEmpty(x.Trim())).ToArray();
@@ -24,7 +33,7 @@ namespace RevisionVCE.Models
                 choiceTxt = choiceTxt.Replace("\r", "");
 
                 string[] choiceSplited = choiceTxt.Split('.');
-                Choices.Add(choiceSplited[0][0], choiceSplited[1].Trim());
+                Choices.Add(new Choice { Letter = choiceSplited[0][0], Text = choiceSplited[1].Trim() });
             }
 
             //Récupération des réponses
@@ -36,7 +45,12 @@ namespace RevisionVCE.Models
                 answerTxt = answerTxt.Trim().Replace("\r", "");
 
                 if(answerTxt.Split("Correct Answer: ").Length > 1)
-                    Answers = answerTxt.Split("Correct Answer: ")[1].ToCharArray();
+                {
+                    foreach(char correcteAnswer in answerTxt.Split("Correct Answer: ")[1].ToCharArray())
+                    {
+                        
+                    }
+                }
             }
 
             //Récupération du texte de la question
@@ -75,12 +89,15 @@ namespace RevisionVCE.Models
             }
         }
 
+        public int Id { get; set; }
         public string Text { get; set; }
         public string Explanation { get; set; }
         public string Section { get; set; }
+        
 
-        public Dictionary<char, string> Choices { get; set; }
-        public char[] Answers { get; set; }
+        //Relations
+        public virtual Questionnaire Questionnaire { get; set; }
+        public virtual ICollection<Choice> Choices { get; set; }
 
     }
 }
