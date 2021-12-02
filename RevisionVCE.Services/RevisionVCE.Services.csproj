@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RevisionVCE.IRepositories\RevisionVCE.IRepositories.csproj" />
     <ProjectReference Include="..\RevisionVCE.IServices\RevisionVCE.IServices.csproj" />
   </ItemGroup>
 

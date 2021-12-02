@@ -1,12 +1,11 @@
-﻿using RevisionVCE.Domain.Models;
-using RevisionVCE.Models;
+﻿using RevisionVCE.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace RevisionVCE.Domain.Models
+namespace RevisionVCE.Infra.Models
 {
     public class Question
     {

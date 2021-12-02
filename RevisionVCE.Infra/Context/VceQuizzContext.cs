@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RevisionVCE.Infra.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using RevisionVCE.Domain.Models;
+
 
 namespace RevisionVCE.Infra.Context
 {
@@ -24,6 +25,7 @@ namespace RevisionVCE.Infra.Context
 
         //entities
         public DbSet<Question> Questions { get; set; }
+        public DbSet<Choice> Choices { get; set; }
         public DbSet<Questionnaire> Questionnaires { get; set; }
     }
 }

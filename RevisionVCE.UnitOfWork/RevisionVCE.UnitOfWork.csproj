@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RevisionVCE.Infra\RevisionVCE.Infra.csproj" />
-    <ProjectReference Include="..\RevisionVCE.IRepositories\RevisionVCE.IRepositories.csproj" />
   </ItemGroup>
 
 </Project>

@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RevisionVCE.Domain\RevisionVCE.Domain.csproj" />
+    <ProjectReference Include="..\RevisionVCE.Models\RevisionVCE.Models.csproj" />
   </ItemGroup>
 
 </Project>

@@ -6,13 +6,15 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RevisionVCE.Infra.Context;
-using RevisionVCE.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using RevisionVCE.Services;
 using RevisionVCE.IServices;
+using RevisionVCE.UnitOfWork;
+using RevisionVCE.IRepositories;
+using RevisionVCE.Repositories;
 
 namespace RevisionVCE
 {
@@ -31,15 +33,24 @@ namespace RevisionVCE
             services.AddControllersWithViews();
             services.AddDbContext<VceQuizzContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("DevEnvironnement"))
+                options.UseSqlServer(Configuration.GetConnectionString("DevEnvironnement"), b => b.MigrationsAssembly("RevisionVCE.UI"))
                 .UseLazyLoadingProxies();
+
             });
             AddInjectionDependencyForServices(services);
+            AddInjectionDependencyForRepositories(services);
         }
 
         private void AddInjectionDependencyForServices(IServiceCollection services)
         {
             services.AddScoped<IPdfParserService, PdfParserService>();
+            services.AddScoped<IQuestionService, QuestionService>();
+            services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
+        }
+
+        private void AddInjectionDependencyForRepositories(IServiceCollection services)
+        {
+            services.AddScoped<IQuestionRepository, QuestionRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

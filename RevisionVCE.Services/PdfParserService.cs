@@ -16,7 +16,7 @@ namespace RevisionVCE.Services
     {
         public PdfParserService(){}
 
-        public IEnumerable<QuestionModel> GetQuestionsFromPdf()
+        public ICollection<QuestionModel> GetQuestionsFromPdf()
         {
             string pdfPath = "D:\\dev\\source\\repos\\RevisionVCE\\RevisionVCE\\wwwroot\\myFile.pdf";
             List<QuestionModel> questions = new List<QuestionModel>();

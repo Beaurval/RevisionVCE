@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RevisionVCE.UI.Models
+namespace RevisionVCE.Infra.Models
 {
     public class Choice
     {

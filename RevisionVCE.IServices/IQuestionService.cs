@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace RevisionVCE.IServices
 {
-    public interface IPdfParserService
+    public interface IQuestionService
     {
-        ICollection<QuestionModel> GetQuestionsFromPdf();
+        Task Add(IEnumerable<QuestionModel> questions);
+        Task AddQuiz(QuestionnaireModel questionnaireModel);
     }
 }
