@@ -44,13 +44,13 @@ namespace RevisionVCE
         private void AddInjectionDependencyForServices(IServiceCollection services)
         {
             services.AddScoped<IPdfParserService, PdfParserService>();
-            services.AddScoped<IQuestionService, QuestionService>();
+            services.AddScoped<ISurveyService, QuestionService>();
             services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
         }
 
         private void AddInjectionDependencyForRepositories(IServiceCollection services)
         {
-            services.AddScoped<IQuestionRepository, QuestionRepository>();
+            services.AddScoped<ISurveyRepository, SurveyRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

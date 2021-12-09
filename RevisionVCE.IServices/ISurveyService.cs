@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace RevisionVCE.IServices
 {
-    public interface IQuestionService
+    public interface ISurveyService
     {
-        Task Add(IEnumerable<QuestionModel> questions);
         Task AddQuiz(QuestionnaireModel questionnaireModel);
     }
 }

@@ -10,19 +10,13 @@ using System.Threading.Tasks;
 
 namespace RevisionVCE.Repositories
 {
-    public class QuestionRepository : IQuestionRepository
+    public class SurveyRepository : ISurveyRepository
     {
         private readonly VceQuizzContext _context;
 
-        public QuestionRepository(VceQuizzContext context)
+        public SurveyRepository(VceQuizzContext context)
         {
             _context = context;
-        }
-
-        public async Task Add(ICollection<QuestionModel> questionsModel)
-        {
-            var questions = questionsModel.Select(qm => new Question(qm));
-            await _context.Questions.AddRangeAsync(questions);
         }
 
         public async Task AddQuiz(QuestionnaireModel questionnaireModel)

@@ -9,23 +9,13 @@ using System.Threading.Tasks;
 
 namespace RevisionVCE.Services
 {
-    public class QuestionService : IQuestionService
+    public class QuestionService : ISurveyService
     {
-        private readonly IQuestionRepository _questionRepository;
+        private readonly ISurveyRepository _questionRepository;
 
-        public QuestionService(IQuestionRepository questionRepository)
+        public QuestionService(ISurveyRepository questionRepository)
         {
             _questionRepository = questionRepository;
-        }
-
-        public async Task Add(ICollection<QuestionModel> questions)
-        {
-            await _questionRepository.Add(questions);
-        }
-
-        public Task Add(IEnumerable<QuestionModel> questions)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task AddQuiz(QuestionnaireModel questionnaireModel)

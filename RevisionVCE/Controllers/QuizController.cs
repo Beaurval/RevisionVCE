@@ -23,11 +23,11 @@ namespace RevisionVCE.Controllers
     public class HomeController : Controller
     {
         private readonly IPdfParserService _pdfService;
-        private readonly IQuestionService _questionService;
+        private readonly ISurveyService _questionService;
         private readonly IUnitOfWork _unitOfWork;
         public HomeController(
-            IPdfParserService pdfService, 
-            IQuestionService questionService, 
+            IPdfParserService pdfService,
+            ISurveyService questionService, 
             IUnitOfWork unitOfWork)
         {
             _pdfService = pdfService;
@@ -41,8 +41,8 @@ namespace RevisionVCE.Controllers
             questionnaire.Titre = "Mon super quizz";
             questionnaire.QuestionsModel = _pdfService.GetQuestionsFromPdf();
 
-            await _questionService.AddQuiz(questionnaire);
-            await _unitOfWork.SaveChangesAsync();
+            //await _questionService.AddQuiz(questionnaire);
+            //await _unitOfWork.SaveChangesAsync();
 
             return View();
         }

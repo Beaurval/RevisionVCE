@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace RevisionVCE.IRepositories
 {
-    public interface IQuestionRepository
+    public interface ISurveyRepository
     {
-        Task Add(ICollection<QuestionModel> questionnaire);
         Task AddQuiz(QuestionnaireModel questionnaireModel);
     }
 }
